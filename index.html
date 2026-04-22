@@ -5,127 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>معرض مشاريع الأردوينو - اتحاد الطلبة</title>
     <style>
-        body {
-            background-color: #0b0e14;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        header {
-            width: 100%;
-            padding: 40px 0;
-            text-align: center;
-            background: linear-gradient(180deg, #161b22 0%, #0b0e14 100%);
-            border-bottom: 1px solid #30363d;
-        }
-        .container {
-            width: 90%;
-            max-width: 500px;
-            margin: 20px 0;
-        }
-        .card {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .card:hover { border-color: #ff9f43; transform: scale(1.02); }
-        .icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 159, 67, 0.1);
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            margin-left: 15px;
-        }
+        body { background-color: #0b0e14; color: #ffffff; font-family: sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+        header { width: 100%; padding: 40px 0; text-align: center; background: linear-gradient(180deg, #161b22 0%, #0b0e14 100%); border-bottom: 1px solid #30363d; }
+        .container { width: 95%; max-width: 500px; margin: 20px 0; }
+        .card { background: #161b22; border: 1px solid #30363d; border-radius: 15px; margin-bottom: 12px; padding: 15px; display: flex; align-items: center; cursor: pointer; transition: 0.3s; }
+        .card:hover { border-color: #ff9f43; background: #1c2128; }
+        .icon { width: 45px; height: 45px; background: rgba(255, 159, 67, 0.1); border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 20px; margin-left: 15px; }
         .content { flex-grow: 1; }
-        .content h3 { margin: 0; font-size: 16px; color: #ffffff; }
+        .content h3 { margin: 0; font-size: 16px; color: #ff9f43; }
         .content p { margin: 5px 0 0; font-size: 13px; color: #8b949e; }
-        .arrow { color: #ff9f43; font-size: 20px; }
-        
-        /* القسم المخفي التفاصيل */
-        .details {
-            display: none;
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-top: none;
-            border-radius: 0 0 15px 15px;
-            padding: 15px;
-            margin-top: -20px;
-            margin-bottom: 15px;
-            font-size: 13px;
-            line-height: 1.6;
-        }
+        .details { display: none; background: #0d1117; border: 1px solid #30363d; border-radius: 12px; padding: 15px; margin-bottom: 15px; font-size: 13px; line-height: 1.6; border-top: none; margin-top: -15px; }
     </style>
 </head>
 <body>
-
-<header>
-    <h2 style="color: #ff9f43; margin: 0;">جامعة وادي الشاطئ</h2>
-    <p style="color: #8b949e; margin: 5px 0 0;">اتحاد قسم الهندسة الكهربائية والإلكترونية</p>
-    <h1 style="font-size: 24px; margin-top: 20px;">معرض يوم الأردوينو ⚡</h1>
-</header>
-
-<div class="container" id="project-list"></div>
-
-<script>
-    const projects = [
-        { t: "نظام الري الذكي", d: "ري تلقائي حسب الرطوبة", i: "🌱", g: "توفير المياه بنسبة 40%", a: "Arduino, Soil Sensor, Pump", w: "يعمل الحساس على قياس الرطوبة وتشغيل المضخة عند الجفاف." },
-        { t: "قفاز لغة الإشارة", d: "تحويل الحركة إلى كلمات", i: "✋", g: "تسهيل تواصل الصم والبكم", a: "Arduino Nano, Flex Sensors", w: "يترجم انحناء الأصابع إلى نصوص عبر البلوتوث." },
-        { t: "سلة المهملات الذكية", d: "فتح آلي بدون لمس", i: "🗑️", g: "تعزيز النظافة العامة", a: "Arduino, Ultrasonic, Servo", w: "تفتح السلة تلقائياً عند اقتراب اليد." },
-        { t: "متتبع الشمس", d: "ملاحقة الضوء للألواح", i: "☀️", g: "زيادة كفاءة الطاقة الشمسية", a: "Servos, LDRs, Solar Panel", w: "يحرك الألواح لتكون متعامدة مع الشمس دائماً." },
-        { t: "رادار كشف الأجسام", d: "رسم خريطة للمحيط", i: "📡", g: "تجنب العقبات في الروبوتات", a: "Ultrasonic, Servo", w: "يدور الحساس 180 درجة لرسم خريطة للأجسام." },
-        { t: "إنذار الحريق والغاز", d: "حماية مبكرة للمنازل", i: "🔥", g: "الأمان من التسريب والحريق", a: "MQ-2 Sensor, Buzzer", w: "يطلق صفارة إنذار عند اكتشاف دخان." },
-        { t: "البيانو الضوئي", d: "عزف بالليزر", i: "🎹", g: "وسيلة تعليمية ترفيهية", a: "Lasers, LDRs, Speaker", w: "يصدر نغمة عند قطع شعاع الليزر باليد." },
-        { t: "قفل الباب بالبصمة", d: "تأمين حيوي للأبواب", i: "🔑", g: "الاستغناء عن المفاتيح التقليدية", a: "Fingerprint Sensor, Solenoid", w: "يفتح القفل عند تطابق البصمة المخزنة." },
-        { t: "محطة أرصاد", d: "قياس الجو لحظياً", i: "🌤️", g: "مراقبة المناخ في الصوبات", a: "DHT11, LCD Screen", w: "يعرض الحرارة والرطوبة بوضوح." },
-        { t: "سيارة تتبع الخط", d: "روبوت مسارات محددة", i: "🏎️", g: "تعلم الذكاء الاصطناعي الحركي", a: "IR Sensors, DC Motors", w: "تتبع الخط الأسود باستخدام حساسات الأشعة." },
-        { t: "ذراع الروبوت", d: "محاكاة صناعية", i: "🦾", g: "التحكم في المهام الدقيقة", a: "Servos, Potentiometers", w: "تتحرك الذراع لتقليد حركة المقابض." },
-        { t: "جهاز التعقيم الآلي", d: "تعقيم بدون تلامس", i: "🧼", g: "الوقاية الصحية", a: "IR Sensor, Mini Pump", w: "يضخ المعقم بمجرد وضع اليد تحته." },
-        { t: "قفل الطرقات", d: "شفرة طرق سرية", i: "✊", g: "أمان ابتكاري فريد", a: "Piezo Sensor, Servo", w: "يفتح القفل فقط عند سماع إيقاع الطرق الصحيح." },
-        { t: "مرصد النبض", d: "قياس نبضات القلب", i: "❤️", g: "المراقبة الصحية الشخصية", a: "Pulse Sensor, OLED", w: "يعرض عدد النبضات (BPM) على الشاشة." },
-        { t: "نظام ركن السيارات", d: "حساسات اصطفاف", i: "🅿️", g: "تقليل حوادث الاصطدام", a: "Ultrasonic, LEDs", w: "يعطي تنبيهات ضوئية وصوتية حسب المسافة." },
-        { t: "المروحة الذكية", d: "تبريد عند الحركة", i: "🌀", g: "توفير استهلاك الكهرباء", a: "PIR Sensor, Relay", w: "تعمل المروحة فقط عند وجود شخص في المكان." },
-        { t: "شاحن الطوارئ", d: "طاقة حركية يدوي", i: "🔋", g: "شحن الهاتف في الأزمات", a: "DC Motor, Regulator", w: "يحول الحركة الدورانية إلى كهرباء 5V." },
-        { t: "إنذار الليزر", d: "تأمين الممرات", i: "🚨", g: "حماية المخازن والغرف", a: "Laser, LDR, Buzzer", w: "ينطلق الإنذار فور قطع الشعاع." },
-        { t: "المصباح الذكي", d: "تحكم بالتصفيق", i: "💡", g: "مساعدة ذوي الاحتياجات", a: "Sound Sensor, Relay", w: "يغير حالة الإضاءة عند سماع صوت قوي." },
-        { t: "روبوت البلوتوث", d: "تحكم عبر الموبايل", i: "📱", g: "تعلم التحكم اللاسلكي", a: "HC-05, Motor Driver", w: "يتم توجيه السيارة عبر تطبيق هاتف." }
-    ];
-
-    const list = document.getElementById('project-list');
-    projects.forEach((p, i) => {
-        list.innerHTML += `
-            <div onclick="toggle(${i})">
-                <div class="card">
-                    <div class="icon">${p.i}</div>
-                    <div class="content"><h3>${p.t}</h3><p>${p.d}</p></div>
-                    <div class="arrow">←</div>
-                </div>
-                <div id="det-${i}" class="details">
-                    <b>الغرض:</b> ${p.g}<br>
-                    <b>الأدوات:</b> ${p.a}<br>
-                    <b>كيف يعمل:</b> ${p.w}
-                </div>
-            </div>`;
-    });
-
-    function toggle(i) {
-        let d = document.getElementById('det-' + i);
-        d.style.display = (d.style.display === 'block') ? 'none' : 'block';
-    }
-</script>
+    <header>
+        <h2 style="color: #ff9f43; margin: 0; font-size: 18px;">جامعة وادي الشاطئ</h2>
+        <p style="color: #8b949e; margin: 5px 0 15px;">اتحاد قسم الهندسة الكهربائية والإلكترونية</p>
+        <h1 style="font-size: 24px;">معرض يوم الأردوينو ⚡</h1>
+    </header>
+    <div class="container" id="list"></div>
+    <script>
+        const projects = [
+            { t: "نظام الري الذكي", d: "ري تلقائي حسب الرطوبة", i: "🌱", g: "توفير المياه وحماية النباتات", a: "Arduino Uno, Soil Sensor, Pump" },
+            { t: "قفاز لغة الإشارة", d: "تحويل الحركة إلى كلمات", i: "✋", g: "تسهيل تواصل الصم والبكم", a: "Arduino Nano, Flex Sensors" },
+            { t: "سلة المهملات الذكية", d: "فتح آلي بدون لمس", i: "🗑️", g: "تعزيز النظافة العامة", a: "Arduino, Ultrasonic, Servo" },
+            { t: "متتبع الشمس", d: "ملاحقة الضوء للألواح", i: "☀️", g: "زيادة كفاءة الطاقة الشمسية", a: "Servos, LDRs, Solar Panel" },
+            { t: "رادار كشف الأجسام", d: "رسم خريطة للمحيط", i: "📡", g: "تجنب العقبات في الروبوتات", a: "Ultrasonic, Servo" },
+            { t: "إنذار الحريق والغاز", d: "حماية مبكرة للمنازل", i: "🔥", g: "الأمان من التسريب والحريق", a: "MQ-2 Sensor, Buzzer" },
+            { t: "البيانو الضوئي", d: "عزف بالليزر", i: "🎹", g: "وسيلة تعليمية ترفيهية", a: "Lasers, LDRs, Speaker" },
+            { t: "قفل الباب بالبصمة", d: "تأمين حيوي للأبواب", i: "🔑", g: "الاستغناء عن المفاتيح", a: "Fingerprint Sensor, Solenoid" },
+            { t: "محطة أرصاد", d: "قياس الجو لحظياً", i: "🌤️", g: "مراقبة المناخ في الصوبات", a: "DHT11, LCD Screen" },
+            { t: "سيارة تتبع الخط", d: "روبوت مسارات محددة", i: "🏎️", g: "تعلم الذكاء الاصطناعي", a: "IR Sensors, DC Motors" }
+        ];
+        const list = document.getElementById('list');
+        projects.forEach((p, i) => {
+            list.innerHTML += `
+                <div onclick="const d=document.getElementById('d'+${i}); d.style.display=(d.style.display==='block'?'none':'block')">
+                    <div class="card">
+                        <div class="icon">${p.i}</div>
+                        <div class="content"><h3>${p.t}</h3><p>${p.d}</p></div>
+                    </div>
+                    <div id="d${i}" class="details"><b>الغرض:</b> ${p.g}<br><b>الأدوات:</b> ${p.a}</div>
+                </div>`;
+        });
+    </script>
 </body>
 </html>
 
